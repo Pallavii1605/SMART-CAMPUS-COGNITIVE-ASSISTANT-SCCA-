@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Campus Assistant</title>
+    <style>
+        /* MODERN STYLING */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+        
+        .form-section {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .tab-container {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #6c757d;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            color: #4f46e5;
+            border-bottom-color: #4f46e5;
+            background: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            font-weight: normal;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 5px;
+        }
+        
+        .demo-box {
+            background: #e0f2fe;
+            border: 2px dashed #0ea5e9;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .demo-box h4 {
+            margin: 0 0 10px;
+            color: #0369a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🎓 Smart Campus Assistant</h1>
+            <p>Fill forms below to manage your campus life</p>
+        </div>
+        
+        <!-- TABS -->
+        <div class="tab-container">
+            <div class="tab active" onclick="showTab('login')">Login</div>
+            <div class="tab" onclick="showTab('book')">Book Lab</div>
+            <div class="tab" onclick="showTab('career')">Career Plan</div>
+            <div class="tab" onclick="showTab('profile')">My Profile</div>
+        </div>
+        
+        <!-- LOGIN FORM -->
+        <div id="login-tab" class="tab-content active">
+            <div class="form-section">
+                <div class="demo-box">
+                    <h4>📋 Demo Credentials (Pre-filled)</h4>
+                    <p>Username: <strong>student123</strong></p>
+                    <p>Password: <strong>password123</strong></p>
+                    <p>Just click "Login" to proceed</p>
+                </div>
+                
+                <div class="form-group">
+                    <label>👤 Username</label>
+                    <input type="text" id="username" value="student123" placeholder="Enter your username">
+                </div>
+                
+                <div class="form-group">
+                    <label>🔒 Password</label>
+                    <input type="password" id="password" value="password123" placeholder="Enter your password">
+                </div>
+                
+                <button onclick="login()">🚀 Login to Smart Campus</button>
+                
+                <div id="login-result"></div>
+            </div>
+        </div>
+        
+        <!-- LAB BOOKING FORM -->
+        <div id="book-tab" class="tab-content">
+            <div class="form-section">
+                <h2 style="margin-top: 0;">🔬 Book Computer Lab</h2>
+                <p style="color: #666;">Fill this form to reserve a lab for your project</p>
+                
+                <div class="form-group">
+                    <label>🏢 Select Lab</label>
+                    <select id="lab-select">
+                        <option value="">-- Choose a Lab --</option>
+                        <option value="lab1">Computer Lab 1 (40 seats)</option>
+                        <option value="lab2">Hardware Lab (30 seats)</option>
+                        <option value="lab3">Project Lab (25 seats)</option>
+                        <option value="lab4">Robotics Lab (20 seats)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>📅 Booking Date</label>
+                    <input type="date" id="lab-date">
+                </div>
+                
+                <div class="form-group">
+                    <label>⏰ Time Slot</label>
+                    <select id="lab-time">
+                        <option value="">-- Select Time --</option>
+                        <option value="9am">9:00 AM - 11:00 AM</option>
+                        <option value="11am">11:00 AM - 1:00 PM</option>
+                        <option value="2pm">2:00 PM - 4:00 PM</option>
+                        <option value="4pm">4:00 PM - 6:00 PM</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>🎯 Purpose of Booking</label>
+                    <textarea id="lab-purpose" rows="3" placeholder="What will you be working on?"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>🛠️ Equipment Needed</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox"> 3D Printer</label>
+                        <label><input type="checkbox"> Arduino Kits</label>
+                        <label><input type="checkbox"> High-end PCs</label>
+                        <label><input type="checkbox"> Oscilloscope</label>
+                        <label><input type="checkbox"> Robotics Kit</label>
+                    </div>
+                </div>
+                
+                <button onclick="bookLab()">✅ Confirm Booking</button>
+                
+                <div id="booking-result"></div>
+            </div>
+        </div>
+        
+        <!-- CAREER PLANNER FORM -->
+        <div id="career-tab" class="tab-content">
+            <div class="form-section">
+                <h2 style="margin-top: 0;">💼 Career Path Planner</h2>
+                <p style="color: #666;">Fill your details to get personalized career guidance</p>
+                
+                <div class="form-group">
+                    <label>👤 Current Year</label>
+                    <select id="year">
+                        <option value="">-- Select Year --</option>
+                        <option value="1">First Year</option>
+                        <option value="2">Second Year</option>
+                        <option value="3">Third Year</option>
+                        <option value="4">Fourth Year</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>🎓 Department</label>
+                    <select id="department">
+                        <option value="">-- Select Department --</option>
+                        <option value="cs">Computer Science</option>
+                        <option value="it">Information Technology</option>
+                        <option value="ece">Electronics & Communication</option>
+                        <option value="eee">Electrical Engineering</option>
+                        <option value="mech">Mechanical Engineering</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>⭐ Your Skills (Select all that apply)</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" checked> Python</label>
+                        <label><input type="checkbox" checked> Java</label>
+                        <label><input type="checkbox"> JavaScript</label>
+                        <label><input type="checkbox"> C++</label>
+                        <label><input type="checkbox"> SQL</label>
+                        <label><input type="checkbox"> Machine Learning</label>
+                        <label><input type="checkbox"> Web Development</label>
+                        <label><input type="checkbox"> Data Analysis</label>
+                        <label><input type="checkbox"> Cloud Computing</label>
+                        <label><input type="checkbox"> Mobile App Development</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>🎯 Target Career Role</label>
+                    <select id="career-role">
+                        <option value="">-- Choose Target Role --</option>
+                        <option value="ml">Machine Learning Engineer</option>
+                        <option value="web">Full Stack Developer</option>
+                        <option value="data">Data Scientist</option>
+                        <option value="devops">DevOps Engineer</option>
+                        <option value="cyber">Cybersecurity Analyst</option>
+                        <option value="cloud">Cloud Architect</option>
+                        <option value="mobile">Mobile Developer</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>🎓 Current CGPA</label>
+                    <input type="number" id="cgpa" min="0" max="10" step="0.1" placeholder="Enter your CGPA">
+                </div>
+                
+                <button onclick="analyzeCareer()">📊 Analyze My Career Path</button>
+                
+                <div id="career-result"></div>
+            </div>
+        </div>
+        
+        <!-- PROFILE FORM -->
+        <div id="profile-tab" class="tab-content">
+            <div class="form-section">
+                <h2 style="margin-top: 0;">👤 My Profile</h2>
+                <p style="color: #666;">Update your personal information</p>
+                
+                <div class="form-group">
+                    <label>📛 Full Name</label>
+                    <input type="text" id="full-name" placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label>📧 Email Address</label>
+                    <input type="email" id="email" placeholder="student@college.edu">
+                </div>
+                
+                <div class="form-group">
+                    <label>📱 Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+91 9876543210">
+                </div>
+                
+                <div class="form-group">
+                    <label>🎓 Roll Number</label>
+                    <input type="text" id="roll-number" placeholder="CS2024001">
+                </div>
+                
+                <div class="form-group">
+                    <label>📚 Current Courses</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" checked> Data Structures</label>
+                        <label><input type="checkbox" checked> Algorithms</label>
+                        <label><input type="checkbox"> Database Systems</label>
+                        <label><input type="checkbox"> Operating Systems</label>
+                        <label><input type="checkbox"> Computer Networks</label>
+                        <label><input type="checkbox"> Machine Learning</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>🎯 Study Preferences</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" checked> Morning Study (6 AM - 10 AM)</label>
+                        <label><input type="checkbox"> Afternoon Study (2 PM - 5 PM)</label>
+                        <label><input type="checkbox"> Night Study (8 PM - 12 AM)</label>
+                        <label><input type="checkbox"> Group Study Preferred</label>
+                        <label><input type="checkbox"> Solo Study Preferred</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>💬 Bio / About Me</label>
+                    <textarea id="bio" rows="4" placeholder="Tell us about yourself, your interests, and goals..."></textarea>
+                </div>
+                
+                <button onclick="updateProfile()">💾 Save Profile</button>
+                
+                <div id="profile-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set default date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('lab-date').value = tomorrow.toISOString().split('T')[0];
+        
+        // Set default CGPA
+        document.getElementById('cgpa').value = 8.5;
+        
+        // Set default name and email
+        document.getElementById('full-name').value = 'John Doe';
+        document.getElementById('email').value = 'john.doe@college.edu';
+        document.getElementById('phone').value = '+91 9876543210';
+        document.getElementById('roll-number').value = 'CS2024001';
+        document.getElementById('bio').value = 'Passionate computer science student interested in AI and ML. Looking forward to building innovative projects and learning new technologies.';
+        
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            document.querySelector(`.tab[onclick*="${tabName}"]`).classList.add('active');
+        }
+        
+        // Login function
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                showMessage('Please fill in all fields', 'error', 'login-result');
+                return;
+            }
+            
+            showMessage('🔐 Logging you in...', 'loading', 'login-result');
+            
+            // Simulate API call
+            setTimeout(() => {
+                if (username === 'student123' && password === 'password123') {
+                    showMessage('✅ Login successful! Welcome to Smart Campus. Now you can book labs and plan your career.', 'success', 'login-result');
+                    // Switch to booking tab
+                    setTimeout(() => showTab('book'), 1500);
+                } else {
+                    showMessage('❌ Invalid credentials. Try: student123 / password123', 'error', 'login-result');
+                }
+            }, 1500);
+        }
+        
+        // Book lab function
+        function bookLab() {
+            const lab = document.getElementById('lab-select').value;
+            const date = document.getElementById('lab-date').value;
+            const time = document.getElementById('lab-time').value;
+            const purpose = document.getElementById('lab-purpose').value;
+            
+            if (!lab || !date || !time || !purpose) {
+                showMessage('Please fill all fields in the form', 'error', 'booking-result');
+                return;
+            }
+            
+            showMessage('📋 Processing your booking...', 'loading', 'booking-result');
+            
+            // Simulate booking process
+            setTimeout(() => {
+                const labNames = {
+                    'lab1': 'Computer Lab 1',
+                    'lab2': 'Hardware Lab',
+                    'lab3': 'Project Lab',
+                    'lab4': 'Robotics Lab'
+                };
+                
+                const timeSlots = {
+                    '9am': '9:00 AM - 11:00 AM',
+                    '11am': '11:00 AM - 1:00 PM',
+                    '2pm': '2:00 PM - 4:00 PM',
+                    '4pm': '4:00 PM - 6:00 PM'
+                };
+                
+                const message = `
+                    <div class="success">
+                        <h4>✅ Booking Confirmed!</h4>
+                        <p><strong>Lab:</strong> ${labNames[lab]}</p>
+                        <p><strong>Date:</strong> ${new Date(date).toDateString()}</p>
+                        <p><strong>Time:</strong> ${timeSlots[time]}</p>
+                        <p><strong>Purpose:</strong> ${purpose}</p>
+                        <p><strong>Booking ID:</strong> LAB-${Math.random().toString(36).substr(2, 8).toUpperCase()}</p>
+                        <p>A confirmation email has been sent to your college email.</p>
+                    </div>
+                `;
+                
+                document.getElementById('booking-result').innerHTML = message;
+                
+                // Clear form
+                document.getElementById('lab-purpose').value = '';
+            }, 2000);
+        }
+        
+        // Analyze career function
+        function analyzeCareer() {
+            const year = document.getElementById('year').value;
+            const dept = document.getElementById('department').value;
+            const role = document.getElementById('career-role').value;
+            const cgpa = document.getElementById('cgpa').value;
+            
+            if (!year || !dept || !role || !cgpa) {
+                showMessage('Please fill all fields in the form', 'error', 'career-result');
+                return;
+            }
+            
+            showMessage('📈 Analyzing your profile...', 'loading', 'career-result');
+            
+            // Simulate analysis
+            setTimeout(() => {
+                const roleNames = {
+                    'ml': 'Machine Learning Engineer',
+                    'web': 'Full Stack Developer',
+                    'data': 'Data Scientist',
+                    'devops': 'DevOps Engineer',
+                    'cyber': 'Cybersecurity Analyst',
+                    'cloud': 'Cloud Architect',
+                    'mobile': 'Mobile Developer'
+                };
+                
+                const deptNames = {
+                    'cs': 'Computer Science',
+                    'it': 'Information Technology',
+                    'ece': 'Electronics & Communication',
+                    'eee': 'Electrical Engineering',
+                    'mech': 'Mechanical Engineering'
+                };
+                
+                const yearNames = {
+                    '1': 'First Year',
+                    '2': 'Second Year',
+                    '3': 'Third Year',
+                    '4': 'Fourth Year'
+                };
+                
+                // Calculate match score based on inputs
+                let matchScore = 70;
+                if (dept === 'cs' || dept === 'it') matchScore += 10;
+                if (parseFloat(cgpa) >= 8.0) matchScore += 10;
+                if (parseInt(year) >= 3) matchScore += 5;
+                
+                // Ensure score doesn't exceed 95
+                matchScore = Math.min(matchScore, 95);
+                
+                const message = `
+                    <div class="success">
+                        <h4>🎯 Career Analysis Complete!</h4>
+                        <p><strong>Your Profile:</strong> ${yearNames[year]} ${deptNames[dept]} Student</p>
+                        <p><strong>Current CGPA:</strong> ${cgpa}/10</p>
+                        <hr>
+                        <p><strong>Target Role:</strong> ${roleNames[role]}</p>
+                        <p><strong>Match Score:</strong> ${matchScore}%</p>
+                        
+                        <div style="background: #e5e7eb; height: 10px; border-radius: 5px; margin: 10px 0;">
+                            <div style="width: ${matchScore}%; background: #10b981; height: 100%; border-radius: 5px;"></div>
+                        </div>
+                        
+                        <h4>📋 Recommended Action Plan:</h4>
+                        <ol style="margin: 10px 0; padding-left: 20px;">
+                            <li>Complete 2-3 projects in ${roleNames[role].split(' ')[0]} field</li>
+                            <li>Learn: Python, ${role === 'web' ? 'JavaScript & React' : role === 'ml' ? 'TensorFlow & Statistics' : 'Cloud Technologies'}</li>
+                            <li>Do an internship in Semester ${parseInt(year) + 1}</li>
+                            <li>Target companies: ${getCompaniesForRole(role)}</li>
+                            <li>Expected salary: ${getSalaryRange(role, cgpa)}</li>
+                        </ol>
+                    </div>
+                `;
+                
+                document.getElementById('career-result').innerHTML = message;
+            }, 2000);
+        }
+        
+        // Update profile function
+        function updateProfile() {
+            const name = document.getElementById('full-name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const roll = document.getElementById('roll-number').value;
+            
+            if (!name || !email || !phone || !roll) {
+                showMessage('Please fill all required fields', 'error', 'profile-result');
+                return;
+            }
+            
+            showMessage('💾 Saving your profile...', 'loading', 'profile-result');
+            
+            setTimeout(() => {
+                const message = `
+                    <div class="success">
+                        <h4>✅ Profile Updated Successfully!</h4>
+                        <p><strong>Name:</strong> ${name}</p>
+                        <p><strong>Email:</strong> ${email}</p>
+                        <p><strong>Phone:</strong> ${phone}</p>
+                        <p><strong>Roll No:</strong> ${roll}</p>
+                        <p>Your preferences have been saved. The system will now personalize recommendations for you.</p>
+                    </div>
+                `;
+                
+                document.getElementById('profile-result').innerHTML = message;
+            }, 1500);
+        }
+        
+        // Helper functions
+        function getCompaniesForRole(role) {
+            const companies = {
+                'ml': 'Google Brain, Microsoft Research, Amazon ML',
+                'web': 'Google, Meta, Netflix, Amazon',
+                'data': 'Microsoft, IBM, Adobe, Oracle',
+                'devops': 'AWS, Google Cloud, Azure, Docker',
+                'cyber': 'CrowdStrike, Palo Alto, Checkpoint',
+                'cloud': 'AWS, Google Cloud, Microsoft Azure',
+                'mobile': 'Google, Meta, Apple, Uber'
+            };
+            return companies[role] || 'Tech Companies';
+        }
+        
+        function getSalaryRange(role, cgpa) {
+            const baseSalaries = {
+                'ml': '₹12-25 LPA',
+                'web': '₹8-18 LPA',
+                'data': '₹10-20 LPA',
+                'devops': '₹10-22 LPA',
+                'cyber': '₹9-20 LPA',
+                'cloud': '₹12-25 LPA',
+                'mobile': '₹8-16 LPA'
+            };
+            
+            let salary = baseSalaries[role] || '₹8-15 LPA';
+            
+            // Adjust based on CGPA
+            if (parseFloat(cgpa) >= 9.0) {
+                salary = salary.replace('₹', '₹15-30 LPA');
+            } else if (parseFloat(cgpa) >= 8.0) {
+                salary = salary.replace('₹', '₹12-25 LPA');
+            }
+            
+            return salary;
+        }
+        
+        function showMessage(text, type, elementId) {
+            const element = document.getElementById(elementId);
+            
+            if (type === 'loading') {
+                element.innerHTML = `<div style="background: #fef3c7; color: #92400e; padding: 15px; border-radius: 8px;">⏳ ${text}</div>`;
+            } else if (type === 'success') {
+                element.innerHTML = `<div class="success">✅ ${text}</div>`;
+            } else if (type === 'error') {
+                element.innerHTML = `<div class="error">❌ ${text}</div>`;
+            }
+        }
+        
+        // Auto-login after 2 seconds
+        setTimeout(() => {
+            document.getElementById('login-result').innerHTML = `
+                <div class="success">
+                    <h4>👋 Welcome to Smart Campus Assistant!</h4>
+                    <p>Demo credentials are pre-filled. Click "Login" to continue.</p>
+                    <p>You can also try:</p>
+                    <ul>
+                        <li>Click "Book Lab" tab to reserve computer labs</li>
+                        <li>Click "Career Plan" tab for personalized guidance</li>
+                        <li>Click "My Profile" to update your information</li>
+                    </ul>
+                </div>
+            `;
+        }, 1000);
+    </script>
+</body>
+</html>
